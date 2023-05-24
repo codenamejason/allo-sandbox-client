@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import { isAddress } from "ethers/lib/utils";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import Blockies from "react-blockies";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useEnsAvatar, useEnsName } from "wagmi";
-import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
 
 type TAddressProps = {
@@ -76,6 +77,8 @@ export const Address = ({ address, disableAddressLink, format }: TAddressProps) 
       </div>
       {disableAddressLink ? (
         <span className="ml-1.5 text-lg font-normal">{displayAddress}</span>
+      ) : blockExplorerAddressLink.includes("localhost") ? (
+        <Link href={`/address/${address}`}>{displayAddress}</Link>
       ) : (
         <a
           className="ml-1.5 text-lg font-normal"
